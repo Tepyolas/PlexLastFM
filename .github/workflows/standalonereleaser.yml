@@ -21,6 +21,15 @@ jobs:
         with:
           node-version: '22.x'
 
+      - name: Add next.config.js file
+        run: |
+          echo ```/** @type {import('next').NextConfig} */
+          const nextConfig = {
+            reactStrictMode: true,
+            output: 'standalone',
+          };
+          module.exports = nextConfig;``` > next.config.js
+
       - name: npm install, build, and test
         run: |
           npm install
