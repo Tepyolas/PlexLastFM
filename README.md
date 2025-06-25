@@ -18,13 +18,13 @@
 - env.LAST_FM_SECRET
 - env.API_KEY (simply a string added to the URL call that's checked, an extra security step)
 
-### Designed to run as a vercel function. 
+### Run on Vercel (free)
 - Simply fork git and setup in Vercel to run from Git
 - Add env variables in Vercel (see below)
 - Add a firewall rule for 0.0.0.0/0 then another above it for your Plex server IP 
   - *(blacklist all, whitelist plex server IP)*
 
-### Simple NPM commands (run locally)
+### Run locally (best if you can run it ON your plex server and hook to 127.0.0.1:3000)
 - Download the latest release standalone.zip
 - Unzip
 - Add .env file as per above/below
