@@ -25,6 +25,9 @@ jobs:
         run: |
           npm install
           npm run build
+          ls .next
+          ls *
+          ls .*
      
       - name: Zip artifact for deployment
         run: | 
