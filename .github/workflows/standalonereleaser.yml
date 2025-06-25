@@ -38,9 +38,9 @@ jobs:
           zip -r standalone.zip * ".next"
           
       - name: Release file
-        working-directory: ./standalone
         uses: ncipollo/release-action@v1.12.0
         with:
+          working-directory: ./standalone
           artifacts: "standalone.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: "latest"
