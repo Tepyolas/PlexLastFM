@@ -33,14 +33,15 @@ jobs:
           cp -r .next/static standalone/.next/static 
           
       - name: Create release zip
+        working-directory: ./standalone
         run: |
-          cd standalone
-          zip -r standalone.zip ./standalone/* "standalone/.next"
+          zip -r standalone.zip ./* ".next"
           
       - name: Release file
+        working-directory: ./standalone
         uses: ncipollo/release-action@v1.12.0
         with:
-          artifacts: "standalone/standalone.zip"
+          artifacts: "standalone.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: "latest"
           allowUpdates: "true"
