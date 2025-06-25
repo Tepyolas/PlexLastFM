@@ -27,16 +27,14 @@ jobs:
           npm run build
      
       - name: Zip artifact for deployment
-        run: mkdir -p standalone/.next/static \
-          cp -r .next/standalone standalone \
-          cp -r .next/static standalone/.next/static  \
+        run: | 
+          mkdir -p standalone/.next/static
+          cp -r .next/standalone standalone
+          cp -r .next/static standalone/.next/static 
           cd standalone
           
-      - name: Add .next folder 
-        run: zip standalone.zip ./* -r
-
-      - name: Add .next folder 
-        run: zip standalone.zip ./.next -r
+      - name: Create release zip
+        run: zip -r standalone.zip ./* ".next"
           
       - name: Release file
         uses: ncipollo/release-action@v1.12.0
