@@ -1,0 +1,48 @@
+on:
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - 'README.md'
+      - '.github/**'
+      - '.vercalignore'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.x'
+
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build
+     
+      - name: Zip artifact for deployment
+        run: mkdir -p standalone/.next/static \
+          cp -r .next/standalone standalone \
+          cp -r .next/static standalone/.next/static  \
+          cd standalone
+          
+      - name: Add .next folder 
+        run: zip standalone.zip ./* -r
+
+      - name: Add .next folder 
+        run: zip standalone.zip ./.next -r
+          
+      - name: Release file
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          artifacts: "standalone.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: "latest"
+          allowUpdates: "true"
+
