@@ -25,17 +25,17 @@ jobs:
         run: |
           npm install
           npm run build
-          ls .next
      
-      - name: Zip artifact for deployment
+      - name: Prezip - create directory structure
         run: | 
           mkdir -p standalone/.next/static
           cp -r .next/standalone standalone
           cp -r .next/static standalone/.next/static 
-          cd standalone
           
       - name: Create release zip
-        run: zip -r standalone.zip ./* ".next"
+        run: |
+          cd standalone
+          zip -r standalone.zip ./standalone/* "standalone/.next"
           
       - name: Release file
         uses: ncipollo/release-action@v1.12.0
