@@ -12,27 +12,28 @@
 - Minor error handling
 
 ## Setup
+### Requires Last.FM API Access + API_KEY env Variables (.env for node, environment variables for Vercel)
+- env.LAST_FM_API
+- env.LAST_FM_SK (secret key)
+- env.LAST_FM_SECRET
+- env.API_KEY (simply a string added to the URL call that's checked, an extra security step)
+
 ### Designed to run as a vercel function. 
 - Simply fork git and setup in Vercel to run from Git
 - Add env variables in Vercel (see below)
 - Add a firewall rule for 0.0.0.0/0 then another above it for your Plex server IP 
   - *(blacklist all, whitelist plex server IP)*
 
-### Requires Last.FM API Access + API_KEY env Variables
-- env.LAST_FM_API
-- env.LAST_FM_SK (secret key)
-- env.LAST_FM_SECRET
-- env.API_KEY (simply a string added to the URL call that's checked, an extra security step)
-
 ### Simple NPM commands (run locally)
-```
-npm install
-npm run build
-npm run start
-```
+- Download the latest release standalone.zip
+- Unzip
+- Add .env file as per above/below
+- ```node --env-file .env server.js```
+
+Server will be live on (IP):3000. It can run locally on your plex server and the webhook is 127.0.0.1:3000, works best this way.
 
 ### Setup Plex
-- Add a webhook to *(URL)*/api/webhook?apiKey=*API_KEY*
+- Add a webhook to *(URL/IP)*:3000/api/webhook?apiKey=*API_KEY*
 
 ### Bash script for getting a LastFM permanent session key (env.LAST_FM_SECRET)
 - Create an app at https://www.last.fm/api/account/create
